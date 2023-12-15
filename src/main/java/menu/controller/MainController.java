@@ -55,9 +55,12 @@ public class MainController {
     }
 
     private void printResult() {
+        outputView.printResultStartMessage();
+
         CategoryNamesDto categoryNamesDto = service.getCategoryNamesDto();
         List<ResultDto> resultDtos = service.getResultDtos();
-
         outputView.printResult(categoryNamesDto, resultDtos);
+
+        outputView.printEndMessage();
     }
 }

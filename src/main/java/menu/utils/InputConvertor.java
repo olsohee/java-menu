@@ -17,14 +17,6 @@ public class InputConvertor {
         return inputConvertor;
     }
 
-    public int convertStringToInt(String input) {
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getErrorMessage());
-        }
-    }
-
     public List<String> convertStringToList(String inputString) {
         return Arrays.stream(inputString.split(","))
                 .map(input -> input.trim())
