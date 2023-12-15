@@ -4,8 +4,8 @@ import camp.nextstep.edu.missionutils.Randoms;
 import menu.domain.*;
 import menu.dto.CategoryNamesDto;
 import menu.dto.CoachNameDto;
-import menu.dto.DayOfWeekDto;
-import menu.dto.ResultDto;
+import menu.dto.DayNamesDto;
+import menu.dto.RecommendedMenusDto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,11 +54,11 @@ public class Service {
                 .collect(Collectors.toList());
     }
 
-    public DayOfWeekDto getDayDtos() {
+    public DayNamesDto getDayDtos() {
         List<String> dayNames = categories.getCategories().keySet().stream()
                 .map(day -> day.getName())
                 .collect(Collectors.toList());
-        return new DayOfWeekDto(dayNames);
+        return new DayNamesDto(dayNames);
     }
 
     public CategoryNamesDto getCategoryNamesDto() {
@@ -68,14 +68,14 @@ public class Service {
         return new CategoryNamesDto(categoryNames);
     }
 
-    public List<ResultDto> getResultDtos() {
-        List<ResultDto> resultDtos = new ArrayList<>();
+    public List<RecommendedMenusDto> getResultDtos() {
+        List<RecommendedMenusDto> recommendedMenusDtos = new ArrayList<>();
         for (Coach coach : coaches.getCoaches()) {
             List<String> recommendedMenuNames = coach.getRecommendedMenus().keySet().stream()
                     .map(day -> coach.getRecommendedMenus().get(day))
                     .collect(Collectors.toList());
-            resultDtos.add(new ResultDto(coach.getName(), recommendedMenuNames));
+            recommendedMenusDtos.add(new RecommendedMenusDto(coach.getName(), recommendedMenuNames));
         }
-        return resultDtos;
+        return recommendedMenusDtos;
     }
 }

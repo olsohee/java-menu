@@ -2,8 +2,8 @@ package menu.controller;
 
 import menu.dto.CategoryNamesDto;
 import menu.dto.CoachNameDto;
-import menu.dto.DayOfWeekDto;
-import menu.dto.ResultDto;
+import menu.dto.DayNamesDto;
+import menu.dto.RecommendedMenusDto;
 import menu.service.Service;
 import menu.utils.InputConvertor;
 import menu.view.InputView;
@@ -58,10 +58,10 @@ public class MainController {
     private void printResult() {
         outputView.printResultStartMessage();
 
-        DayOfWeekDto dayDtos = service.getDayDtos();
+        DayNamesDto dayDtos = service.getDayDtos();
         CategoryNamesDto categoryNamesDto = service.getCategoryNamesDto();
-        List<ResultDto> resultDtos = service.getResultDtos();
-        outputView.printResult(dayDtos, categoryNamesDto, resultDtos);
+        List<RecommendedMenusDto> recommendedMenusDtos = service.getResultDtos();
+        outputView.printResult(dayDtos, categoryNamesDto, recommendedMenusDtos);
 
         outputView.printEndMessage();
     }

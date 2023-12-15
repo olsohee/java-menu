@@ -1,8 +1,8 @@
 package menu.view;
 
 import menu.dto.CategoryNamesDto;
-import menu.dto.DayOfWeekDto;
-import menu.dto.ResultDto;
+import menu.dto.DayNamesDto;
+import menu.dto.RecommendedMenusDto;
 import menu.message.OutputMessage;
 
 import java.util.List;
@@ -32,16 +32,16 @@ public class OutputView {
         System.out.println(OutputMessage.RESULT_START_MESSAGE.getMessage());
     }
 
-    public void printResult(DayOfWeekDto dayDtos, CategoryNamesDto categoryNamesDto, List<ResultDto> resultDtos) {
+    public void printResult(DayNamesDto dayDtos, CategoryNamesDto categoryNamesDto, List<RecommendedMenusDto> recommendedMenusDtos) {
         printDays(dayDtos);
         printCategories(categoryNamesDto);
-        printRecommendedMenus(resultDtos);
+        printRecommendedMenus(recommendedMenusDtos);
     }
 
-    private void printDays(DayOfWeekDto dayDtos) {
-        dayDtos.getDay().add(0, OutputMessage.DIVISION.getMessage());
+    private void printDays(DayNamesDto dayDtos) {
+        dayDtos.getDayNames().add(0, OutputMessage.DIVISION.getMessage());
         System.out.println(String.format(OutputMessage.RESULT_FORM.getMessage(),
-                String.join(OutputMessage.DELIMITER.getMessage(), dayDtos.getDay())));
+                String.join(OutputMessage.DELIMITER.getMessage(), dayDtos.getDayNames())));
     }
 
     private void printCategories(CategoryNamesDto categoryNamesDto) {
@@ -50,12 +50,12 @@ public class OutputView {
                 String.join(OutputMessage.DELIMITER.getMessage(), categoryNamesDto.getCategoryNames())));
     }
 
-    private void printRecommendedMenus(List<ResultDto> resultDtos) {
-        resultDtos.stream()
+    private void printRecommendedMenus(List<RecommendedMenusDto> recommendedMenusDtos) {
+        recommendedMenusDtos.stream()
                 .forEach(dto -> {
-                    dto.getMenus().add(0, dto.getCoachName());
+                    dto.getRecommendedMenus().add(0, dto.getCoachName());
                     System.out.println(String.format(OutputMessage.RESULT_FORM.getMessage(),
-                            String.join(OutputMessage.DELIMITER.getMessage(), dto.getMenus())));
+                            String.join(OutputMessage.DELIMITER.getMessage(), dto.getRecommendedMenus())));
                 });
     }
 

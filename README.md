@@ -189,7 +189,7 @@ String category = categories.get(Randoms.pickNumberInRange(1, 5));
   - 카테고리에 포함되는 메뉴 목록을 `List<String>` 형태로 준비한다.
 
 ```java
-String menu = Randoms.shuffle(menus).get(0);
+String menu = Randoms.shuffle(recommendedMenus).get(0);
 ```
 
 - 임의로 메뉴의 순서 또는 데이터를 변경하면 안 된다.
