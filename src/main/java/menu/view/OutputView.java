@@ -27,6 +27,9 @@ public class OutputView {
     }
 
     public void printResult(CategoryNamesDto categoryNamesDto, List<ResultDto> resultDtos) {
+        System.out.println();
+        System.out.println(OutputMessage.RESULT_START_MESSAGE.getMessage());
+
         System.out.println(OutputMessage.DAY_OF_WEEK.getMessage());
         categoryNamesDto.getCategoryNames().add(0, "카테고리");
         System.out.println(String.format(OutputMessage.RESULT_FORM.getMessage(),
