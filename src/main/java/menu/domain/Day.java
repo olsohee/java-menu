@@ -4,8 +4,8 @@ public enum Day {
 
     MON("월요일"),
     TUE("화요일"),
-    THU("수요일"),
-    WEN("목요일"),
+    WEN("수요일"),
+    THU("목요일"),
     FRI("금요일")
     ;
 
