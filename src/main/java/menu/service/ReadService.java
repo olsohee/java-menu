@@ -34,7 +34,7 @@ public class ReadService {
                 .collect(Collectors.toList());
     }
 
-    public DayNamesDto getDayDtos() {
+    public DayNamesDto getDayNamesDto() {
         Categories categories = categoryRepository.find();
         List<String> dayNames = categories.getCategories().keySet().stream()
                 .map(day -> day.getName())
@@ -50,7 +50,7 @@ public class ReadService {
         return new CategoryNamesDto(categoryNames);
     }
 
-    public List<RecommendedMenusDto> getResultDtos() {
+    public List<RecommendedMenusDto> getRecommendedMenusDtos() {
         Coaches coaches = coachRepository.findCoaches();
         List<RecommendedMenusDto> recommendedMenusDtos = new ArrayList<>();
         for (Coach coach : coaches.getCoaches()) {

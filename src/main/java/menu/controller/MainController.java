@@ -60,10 +60,10 @@ public class MainController {
     private void printResult() {
         outputView.printResultStartMessage();
 
-        DayNamesDto dayDtos = readService.getDayDtos();
+        DayNamesDto dayNamesDto = readService.getDayNamesDto();
         CategoryNamesDto categoryNamesDto = readService.getCategoryNamesDto();
-        List<RecommendedMenusDto> recommendedMenusDtos = readService.getResultDtos();
-        outputView.printResult(dayDtos, categoryNamesDto, recommendedMenusDtos);
+        List<RecommendedMenusDto> recommendedMenusDtos = readService.getRecommendedMenusDtos();
+        outputView.printResult(dayNamesDto, categoryNamesDto, recommendedMenusDtos);
 
         outputView.printEndMessage();
     }
