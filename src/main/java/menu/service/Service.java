@@ -8,6 +8,7 @@ import menu.dto.DayOfWeekDto;
 import menu.dto.ResultDto;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,24 +29,23 @@ public class Service {
         coaches = new Coaches(names);
     }
 
-    public void createExcludedMenu(String coachName, List<String> excludedMenus) {
-        coaches.createExcludedMenu(coachName, excludedMenus);
+    public void createExcludedMenus(CoachNameDto coachNameDto, List<String> excludedMenus) {
+        coaches.createExcludedMenus(coachNameDto.getName(), excludedMenus);
     }
 
     public void recommend() {
-        for (Day day : Day.values()) {
-            selectCategory(day);
-        }
+        Arrays.stream(Day.values())
+                .forEach(day -> selectCategory(day));
     }
 
     private void selectCategory(Day day) {
         Category category = Category.getCategoryByNumber(Randoms.pickNumberInRange(1, 5));
         try {
             categories.addCategory(day, category);
-            coaches.recommend(day, category);
         } catch (IllegalArgumentException e) {
             selectCategory(day);
         }
+        coaches.recommend(day, category);
     }
 
     public List<CoachNameDto> getCoachNameDtos() {

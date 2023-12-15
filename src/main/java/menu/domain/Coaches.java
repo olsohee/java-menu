@@ -37,11 +37,11 @@ public class Coaches {
         }
     }
 
-    public void createExcludedMenu(String coachName, List<String> excludedMenus) {
+    public void createExcludedMenus(String coachName, List<String> excludedMenus) {
         Coach findCoach = coaches.stream()
                 .filter(coach -> coach.getName().equals(coachName))
                 .findAny().get();
-        findCoach.createExcludedMenu(excludedMenus);
+        findCoach.createExcludedMenus(excludedMenus);
     }
 
     public void recommend(Day day, Category category) {

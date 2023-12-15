@@ -25,7 +25,7 @@ public class Coach {
         }
     }
 
-    public void createExcludedMenu(List<String> excludedMenus) {
+    public void createExcludedMenus(List<String> excludedMenus) {
         validateCount(excludedMenus);
         validateIsExistMenu(excludedMenus);
         this.excludedMenus = excludedMenus;
@@ -42,10 +42,6 @@ public class Coach {
                 .forEach(menuName -> Category.validateIsExistMenu(menuName));
     }
 
-    public boolean isExcludedMenu(String menu) {
-        return excludedMenus.contains(menu);
-    }
-
     public void recommend(Day day, Category category) {
         String menu = Randoms.shuffle(category.getMenus()).get(0);
         try {
@@ -53,14 +49,13 @@ public class Coach {
             validateDuplicated(menu);
         } catch (IllegalArgumentException e) {
             recommend(day, category);
-            return;
         }
         recommendedMenus.put(day, menu);
     }
 
     private void validateExcludedMenu(String menu) {
         if (excludedMenus.contains(menu)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.EXCLUDED_MENU_CANNOT_RECOMMENDED.getErrorMessage());
         }
     }
 

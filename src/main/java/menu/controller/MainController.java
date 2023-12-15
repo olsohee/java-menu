@@ -38,16 +38,16 @@ public class MainController {
 
     private void createExcludedMenu() {
         service.getCoachNameDtos().stream()
-                .forEach(dto ->  readExcludedMenu(dto));
+                .forEach(coachNameDto ->  readExcludedMenu(coachNameDto));
     }
 
-    private void readExcludedMenu(CoachNameDto dto) {
+    private void readExcludedMenu(CoachNameDto coachNameDto) {
         try {
-            List<String> excludedMenus = inputConvertor.convertStringToList(inputView.readExcludedMenu(dto));
-            service.createExcludedMenu(dto.getName(), excludedMenus);
+            List<String> excludedMenus = inputConvertor.convertStringToList(inputView.readExcludedMenu(coachNameDto));
+            service.createExcludedMenus(coachNameDto, excludedMenus);
         } catch (IllegalArgumentException e) {
             outputView.printErrorMessage(e.getMessage());
-            readExcludedMenu(dto);
+            readExcludedMenu(coachNameDto);
         }
     }
 

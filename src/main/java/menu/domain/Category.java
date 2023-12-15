@@ -46,9 +46,8 @@ public enum Category {
 
     public static void validateIsExistMenu(String menuName) {
         boolean isExist = Arrays.stream(Category.values())
-                .anyMatch(category ->
-                        category.getMenus().stream()
-                                .anyMatch(menu -> menu.contains(menuName))
+                .anyMatch(category -> category.getMenus().stream()
+                        .anyMatch(menu -> menu.contains(menuName))
                 );
         if (!isExist) {
             throw new IllegalArgumentException(ErrorMessage.NOT_FOUND_MENU.getErrorMessage());
