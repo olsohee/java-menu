@@ -37,12 +37,11 @@ public enum Category {
         this.menus = menus;
     }
 
-    public static List<String> getMenusByNumber(int number) {
+    public static Category getCategoryByNumber(int number) {
         return Arrays.stream(Category.values())
                 .filter(category -> category.getNumber() == number)
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException())
-                .getMenus();
+                .orElseThrow(() -> new IllegalArgumentException());
     }
 
     public static void validateIsExistMenu(String menuName) {

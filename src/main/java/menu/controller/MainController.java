@@ -19,6 +19,7 @@ public class MainController {
         outputView.printStartMessage();
         createCoach();
         createExcludedMenu();
+        recommend();
     }
 
     private void createCoach() {
@@ -44,5 +45,9 @@ public class MainController {
             outputView.printErrorMessage(e.getMessage());
             readExcludedMenu(dto);
         }
+    }
+
+    private void recommend() {
+        service.recommend();
     }
 }
