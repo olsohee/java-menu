@@ -39,13 +39,13 @@ public class OutputView {
     }
 
     private void printDays(DayOfWeekDto dayDtos) {
-        dayDtos.getDay().add(0, "구분");
+        dayDtos.getDay().add(0, OutputMessage.DIVISION.getMessage());
         System.out.println(String.format(OutputMessage.RESULT_FORM.getMessage(),
                 String.join(OutputMessage.DELIMITER.getMessage(), dayDtos.getDay())));
     }
 
     private void printCategories(CategoryNamesDto categoryNamesDto) {
-        categoryNamesDto.getCategoryNames().add(0, "카테고리");
+        categoryNamesDto.getCategoryNames().add(0, OutputMessage.CATEGORY.getMessage());
         System.out.println(String.format(OutputMessage.RESULT_FORM.getMessage(),
                 String.join(OutputMessage.DELIMITER.getMessage(), categoryNamesDto.getCategoryNames())));
     }
