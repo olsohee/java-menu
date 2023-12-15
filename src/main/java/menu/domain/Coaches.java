@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Coachs {
+public class Coaches {
 
     private List<Coach> coaches = new ArrayList<>();
 
-    public Coachs(List<String> names) {
+    public Coaches(List<String> names) {
         validate(names);
         coaches = names.stream()
                 .map(name -> new Coach(name))
@@ -37,14 +37,19 @@ public class Coachs {
         }
     }
 
-    public List<Coach> getCoaches() {
-        return coaches;
-    }
-
     public void createExcludedMenu(String coachName, List<String> excludedMenus) {
         Coach findCoach = coaches.stream()
                 .filter(coach -> coach.getName().equals(coachName))
                 .findAny().get();
         findCoach.createExcludedMenu(excludedMenus);
+    }
+
+    public void recommend(Day day, Category category) {
+        coaches.stream()
+                .forEach(coach -> coach.recommend(day, category));
+    }
+
+    public List<Coach> getCoaches() {
+        return coaches;
     }
 }

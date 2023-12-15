@@ -1,6 +1,7 @@
 package menu.view;
 
 import menu.dto.CategoryNamesDto;
+import menu.dto.DayOfWeekDto;
 import menu.dto.ResultDto;
 import menu.message.OutputMessage;
 
@@ -26,22 +27,36 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printResult(CategoryNamesDto categoryNamesDto, List<ResultDto> resultDtos) {
-        System.out.println(OutputMessage.DAY_OF_WEEK.getMessage());
+    public void printResultStartMessage() {
+        System.out.println();
+        System.out.println(OutputMessage.RESULT_START_MESSAGE.getMessage());
+    }
+
+    public void printResult(DayOfWeekDto dayDtos, CategoryNamesDto categoryNamesDto, List<ResultDto> resultDtos) {
+        printDays(dayDtos);
+        printCategories(categoryNamesDto);
+        printRecommendedMenus(resultDtos);
+    }
+
+    private void printDays(DayOfWeekDto dayDtos) {
+        dayDtos.getDay().add(0, "구분");
+        System.out.println(String.format(OutputMessage.RESULT_FORM.getMessage(),
+                String.join(OutputMessage.DELIMITER.getMessage(), dayDtos.getDay())));
+    }
+
+    private void printCategories(CategoryNamesDto categoryNamesDto) {
         categoryNamesDto.getCategoryNames().add(0, "카테고리");
         System.out.println(String.format(OutputMessage.RESULT_FORM.getMessage(),
                 String.join(OutputMessage.DELIMITER.getMessage(), categoryNamesDto.getCategoryNames())));
+    }
+
+    private void printRecommendedMenus(List<ResultDto> resultDtos) {
         resultDtos.stream()
                 .forEach(dto -> {
                     dto.getMenus().add(0, dto.getCoachName());
                     System.out.println(String.format(OutputMessage.RESULT_FORM.getMessage(),
                             String.join(OutputMessage.DELIMITER.getMessage(), dto.getMenus())));
                 });
-    }
-
-    public void printResultStartMessage() {
-        System.out.println();
-        System.out.println(OutputMessage.RESULT_START_MESSAGE.getMessage());
     }
 
     public void printEndMessage() {

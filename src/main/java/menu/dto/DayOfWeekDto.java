@@ -9,4 +9,8 @@ public class DayOfWeekDto {
     public DayOfWeekDto(List<String> day) {
         this.day = day;
     }
+
+    public List<String> getDay() {
+        return day;
+    }
 }

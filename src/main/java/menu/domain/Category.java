@@ -28,12 +28,12 @@ public enum Category {
     ;
 
     private final int number;
-    private final String category;
+    private final String name;
     private final List<String> menus;
 
-    Category(int number, String category, List<String> menus) {
+    Category(int number, String name, List<String> menus) {
         this.number = number;
-        this.category = category;
+        this.name = name;
         this.menus = menus;
     }
 
@@ -59,11 +59,11 @@ public enum Category {
         return number;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
     public List<String> getMenus() {
         return menus;
+    }
+
+    public String getName() {
+        return name;
     }
 }

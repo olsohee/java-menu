@@ -2,6 +2,7 @@ package menu.controller;
 
 import menu.dto.CategoryNamesDto;
 import menu.dto.CoachNameDto;
+import menu.dto.DayOfWeekDto;
 import menu.dto.ResultDto;
 import menu.service.Service;
 import menu.utils.InputConvertor;
@@ -57,9 +58,10 @@ public class MainController {
     private void printResult() {
         outputView.printResultStartMessage();
 
+        DayOfWeekDto dayDtos = service.getDayDtos();
         CategoryNamesDto categoryNamesDto = service.getCategoryNamesDto();
         List<ResultDto> resultDtos = service.getResultDtos();
-        outputView.printResult(categoryNamesDto, resultDtos);
+        outputView.printResult(dayDtos, categoryNamesDto, resultDtos);
 
         outputView.printEndMessage();
     }
