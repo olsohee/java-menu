@@ -2,21 +2,18 @@ package menu.service;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import menu.domain.*;
-import menu.dto.CategoryNamesDto;
 import menu.dto.CoachNameDto;
-import menu.dto.DayNamesDto;
-import menu.dto.RecommendedMenusDto;
+import menu.repository.CategoryRepository;
+import menu.repository.CoachRepository;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class RecommendService {
 
     private static RecommendService recommendService = new RecommendService();
-    private Coaches coaches;
-    private Categories categories = new Categories();
+    private static CoachRepository coachRepository = CoachRepository.getInstance();
+    private static CategoryRepository categoryRepository = CategoryRepository.getInstance();
 
     private RecommendService() {
     }
@@ -26,10 +23,11 @@ public class RecommendService {
     }
 
     public void createCoach(List<String> names) {
-        coaches = new Coaches(names);
+        coachRepository.save(new Coaches(names));
     }
 
     public void createExcludedMenus(CoachNameDto coachNameDto, List<String> excludedMenus) {
+        Coaches coaches = coachRepository.findCoaches();
         coaches.createExcludedMenus(coachNameDto.getName(), excludedMenus);
     }
 
@@ -41,41 +39,12 @@ public class RecommendService {
     private void selectCategory(Day day) {
         Category category = Category.getCategoryByNumber(Randoms.pickNumberInRange(1, 5));
         try {
+            Categories categories = categoryRepository.find();
             categories.addCategory(day, category);
         } catch (IllegalArgumentException e) {
             selectCategory(day);
         }
+        Coaches coaches = coachRepository.findCoaches();
         coaches.recommend(day, category);
-    }
-
-    public List<CoachNameDto> getCoachNameDtos() {
-        return coaches.getCoaches().stream()
-                .map(coach -> new CoachNameDto(coach.getName()))
-                .collect(Collectors.toList());
-    }
-
-    public DayNamesDto getDayDtos() {
-        List<String> dayNames = categories.getCategories().keySet().stream()
-                .map(day -> day.getName())
-                .collect(Collectors.toList());
-        return new DayNamesDto(dayNames);
-    }
-
-    public CategoryNamesDto getCategoryNamesDto() {
-        List<String> categoryNames = categories.getCategories().keySet().stream()
-                .map(category -> categories.getCategories().get(category).getName())
-                .collect(Collectors.toList());
-        return new CategoryNamesDto(categoryNames);
-    }
-
-    public List<RecommendedMenusDto> getResultDtos() {
-        List<RecommendedMenusDto> recommendedMenusDtos = new ArrayList<>();
-        for (Coach coach : coaches.getCoaches()) {
-            List<String> recommendedMenuNames = coach.getRecommendedMenus().keySet().stream()
-                    .map(day -> coach.getRecommendedMenus().get(day))
-                    .collect(Collectors.toList());
-            recommendedMenusDtos.add(new RecommendedMenusDto(coach.getName(), recommendedMenuNames));
-        }
-        return recommendedMenusDtos;
     }
 }

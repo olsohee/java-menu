@@ -4,6 +4,7 @@ import menu.dto.CategoryNamesDto;
 import menu.dto.CoachNameDto;
 import menu.dto.DayNamesDto;
 import menu.dto.RecommendedMenusDto;
+import menu.service.ReadService;
 import menu.service.RecommendService;
 import menu.utils.InputConvertor;
 import menu.view.InputView;
@@ -16,7 +17,8 @@ public class MainController {
     private final InputView inputView = InputView.getInstance();
     private final InputConvertor inputConvertor = InputConvertor.getInstance();
     private final OutputView outputView = OutputView.getInstance();
-    private final RecommendService service = RecommendService.getInstance();
+    private final RecommendService recommendService = RecommendService.getInstance();
+    private final ReadService readService = ReadService.getInstance();
 
     public void run() {
         outputView.printStartMessage();
@@ -29,7 +31,7 @@ public class MainController {
     private void createCoach() {
         try {
             List<String> names = inputConvertor.convertStringToList(inputView.readCoach());
-            service.createCoach(names);
+            recommendService.createCoach(names);
         } catch (IllegalArgumentException e) {
             outputView.printErrorMessage(e.getMessage());
             createCoach();
@@ -37,14 +39,14 @@ public class MainController {
     }
 
     private void createExcludedMenu() {
-        service.getCoachNameDtos().stream()
+        readService.getCoachNameDtos().stream()
                 .forEach(coachNameDto ->  readExcludedMenu(coachNameDto));
     }
 
     private void readExcludedMenu(CoachNameDto coachNameDto) {
         try {
             List<String> excludedMenus = inputConvertor.convertStringToList(inputView.readExcludedMenu(coachNameDto));
-            service.createExcludedMenus(coachNameDto, excludedMenus);
+            recommendService.createExcludedMenus(coachNameDto, excludedMenus);
         } catch (IllegalArgumentException e) {
             outputView.printErrorMessage(e.getMessage());
             readExcludedMenu(coachNameDto);
@@ -52,15 +54,15 @@ public class MainController {
     }
 
     private void recommend() {
-        service.recommend();
+        recommendService.recommend();
     }
 
     private void printResult() {
         outputView.printResultStartMessage();
 
-        DayNamesDto dayDtos = service.getDayDtos();
-        CategoryNamesDto categoryNamesDto = service.getCategoryNamesDto();
-        List<RecommendedMenusDto> recommendedMenusDtos = service.getResultDtos();
+        DayNamesDto dayDtos = readService.getDayDtos();
+        CategoryNamesDto categoryNamesDto = readService.getCategoryNamesDto();
+        List<RecommendedMenusDto> recommendedMenusDtos = readService.getResultDtos();
         outputView.printResult(dayDtos, categoryNamesDto, recommendedMenusDtos);
 
         outputView.printEndMessage();
