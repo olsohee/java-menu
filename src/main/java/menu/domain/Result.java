@@ -2,15 +2,12 @@ package menu.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Result {
 
     private Coach coach;
-    private Map<Day, String> recommendedMenu = new HashMap<>();
+    private Map<Day, String> recommendedMenu = new LinkedHashMap<>();
 
     public Result(Coach coach) {
         initDay();
@@ -25,15 +22,27 @@ public class Result {
 
     public void recommend(Day day, Category category) {
         String menu = Randoms.shuffle(category.getMenus()).get(0);
-        validateDuplicated(day, category, menu);
+        try {
+            validateExcludedMenu(menu);
+            validateDuplicated(day, category, menu);
+        } catch (IllegalArgumentException e) {
+            recommend(day, category);
+            return;
+        }
         recommendedMenu.put(day, menu);
+    }
+
+    private void validateExcludedMenu(String menu) {
+        if (coach.isExcludedMenu(menu)) {
+            throw new IllegalArgumentException();
+        }
     }
 
     private void validateDuplicated(Day day, Category category, String menu) {
         boolean isDuplicated = recommendedMenu.keySet().stream()
                 .anyMatch(dayOfWeek -> recommendedMenu.get(dayOfWeek).equals(menu));
         if (isDuplicated) {
-            recommend(day, category);
+            throw new IllegalArgumentException();
         }
     }
 

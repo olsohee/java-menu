@@ -41,4 +41,8 @@ public class Coach {
         excludedMenus.stream()
                 .forEach(menuName -> Category.validateIsExistMenu(menuName));
     }
+
+    public boolean isExcludedMenu(String menu) {
+        return excludedMenus.contains(menu);
+    }
 }
