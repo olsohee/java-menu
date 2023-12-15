@@ -27,20 +27,12 @@ public class Result {
         String menu = Randoms.shuffle(category.getMenus()).get(0);
         validateDuplicated(day, category, menu);
         recommendedMenu.put(day, menu);
-
-        // log
-        System.out.println(coach.getName());
-        for (Day day1 : recommendedMenu.keySet()) {
-            System.out.println(day1 + recommendedMenu.get(day1));
-        }
-        System.out.println();
     }
 
     private void validateDuplicated(Day day, Category category, String menu) {
         boolean isDuplicated = recommendedMenu.keySet().stream()
                 .anyMatch(dayOfWeek -> recommendedMenu.get(dayOfWeek).equals(menu));
         if (isDuplicated) {
-            System.out.println("중복! 다시 셔플");
             recommend(day, category);
         }
     }

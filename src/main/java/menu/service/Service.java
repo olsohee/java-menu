@@ -40,18 +40,18 @@ public class Service {
 
     public void recommend() {
         for (Day day : Day.values()) {
-            Category category = Category.getCategoryByNumber(Randoms.pickNumberInRange(1, 5));
-            categories.addCategory(category);
-            validate(category);
-
-            // log
-            System.out.println("category = " + category);
-            results.recommend(day, category);
+            selectCategory(day);
         }
     }
 
-    private void validate(Category category) {
-        // todo
+    private void selectCategory(Day day) {
+        Category category = Category.getCategoryByNumber(Randoms.pickNumberInRange(1, 5));
+        try {
+            categories.addCategory(category);
+            results.recommend(day, category);
+        } catch (IllegalArgumentException e) {
+            selectCategory(day);
+        }
     }
 
     public CategoryNamesDto getCategoryNamesDto() {
