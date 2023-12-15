@@ -1,5 +1,6 @@
 package menu.controller;
 
+import menu.dto.CoachNameDto;
 import menu.service.Service;
 import menu.utils.InputConvertor;
 import menu.view.InputView;
@@ -17,6 +18,7 @@ public class MainController {
     public void run() {
         outputView.printStartMessage();
         createCoach();
+        createExcludedMenu();
     }
 
     private void createCoach() {
@@ -27,6 +29,20 @@ public class MainController {
             outputView.printErrorMessage(e.getMessage());
             createCoach();
         }
+    }
 
+    private void createExcludedMenu() {
+        service.getCoachNameDtos().stream()
+                .forEach(dto ->  readExcludedMenu(dto));
+    }
+
+    private void readExcludedMenu(CoachNameDto dto) {
+        try {
+            List<String> excludedMenus = inputConvertor.convertStringToList(inputView.readExcludedMenu(dto));
+            service.createExcludedMenu(dto.getName(), excludedMenus);
+        } catch (IllegalArgumentException e) {
+            outputView.printErrorMessage(e.getMessage());
+            readExcludedMenu(dto);
+        }
     }
 }

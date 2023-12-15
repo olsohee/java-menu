@@ -25,9 +25,9 @@ public class InputConvertor {
         }
     }
 
-    public List<String> convertStringToList(String input) {
-        return Arrays.stream(input.split(","))
-                .map(name -> name.trim())
+    public List<String> convertStringToList(String inputString) {
+        return Arrays.stream(inputString.split(","))
+                .map(input -> input.trim())
                 .collect(Collectors.toList());
     }
 }

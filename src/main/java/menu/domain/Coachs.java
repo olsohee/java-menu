@@ -36,4 +36,15 @@ public class Coachs {
             throw new IllegalArgumentException(ErrorMessage.INVALID_COACH_COUNT.getErrorMessage());
         }
     }
+
+    public List<Coach> getCoaches() {
+        return coaches;
+    }
+
+    public void createExcludedMenu(String coachName, List<String> excludedMenus) {
+        Coach findCoach = coaches.stream()
+                .filter(coach -> coach.getName().equals(coachName))
+                .findAny().get();
+        findCoach.createExcludedMenu(excludedMenus);
+    }
 }
