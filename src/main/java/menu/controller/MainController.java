@@ -4,7 +4,7 @@ import menu.dto.CategoryNamesDto;
 import menu.dto.CoachNameDto;
 import menu.dto.DayNamesDto;
 import menu.dto.RecommendedMenusDto;
-import menu.service.Service;
+import menu.service.RecommendService;
 import menu.utils.InputConvertor;
 import menu.view.InputView;
 import menu.view.OutputView;
@@ -16,7 +16,7 @@ public class MainController {
     private final InputView inputView = InputView.getInstance();
     private final InputConvertor inputConvertor = InputConvertor.getInstance();
     private final OutputView outputView = OutputView.getInstance();
-    private final Service service = Service.getInstance();
+    private final RecommendService service = RecommendService.getInstance();
 
     public void run() {
         outputView.printStartMessage();

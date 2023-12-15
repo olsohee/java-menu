@@ -12,17 +12,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Service {
+public class RecommendService {
 
-    private static Service service = new Service();
+    private static RecommendService recommendService = new RecommendService();
     private Coaches coaches;
     private Categories categories = new Categories();
 
-    private Service() {
+    private RecommendService() {
     }
 
-    public static Service getInstance() {
-        return service;
+    public static RecommendService getInstance() {
+        return recommendService;
     }
 
     public void createCoach(List<String> names) {
