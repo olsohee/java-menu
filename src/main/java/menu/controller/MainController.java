@@ -1,6 +1,8 @@
 package menu.controller;
 
+import menu.dto.CategoryNamesDto;
 import menu.dto.CoachNameDto;
+import menu.dto.ResultDto;
 import menu.service.Service;
 import menu.utils.InputConvertor;
 import menu.view.InputView;
@@ -20,6 +22,7 @@ public class MainController {
         createCoach();
         createExcludedMenu();
         recommend();
+        printResult();
     }
 
     private void createCoach() {
@@ -49,5 +52,12 @@ public class MainController {
 
     private void recommend() {
         service.recommend();
+    }
+
+    private void printResult() {
+        CategoryNamesDto categoryNamesDto = service.getCategoryNamesDto();
+        List<ResultDto> resultDtos = service.getResultDtos();
+
+        outputView.printResult(categoryNamesDto, resultDtos);
     }
 }

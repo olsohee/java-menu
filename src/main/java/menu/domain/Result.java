@@ -2,7 +2,9 @@ package menu.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Result {
@@ -41,5 +43,17 @@ public class Result {
             System.out.println("중복! 다시 셔플");
             recommend(day, category);
         }
+    }
+
+    public Coach getCoach() {
+        return coach;
+    }
+
+    public List<String> getRecommendedMenus() {
+        List<String> menus = new ArrayList<>();
+        for (Day day : recommendedMenu.keySet()) {
+            menus.add(recommendedMenu.get(day));
+        }
+        return menus;
     }
 }

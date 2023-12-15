@@ -2,9 +2,10 @@ package menu.service;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import menu.domain.*;
+import menu.dto.CategoryNamesDto;
 import menu.dto.CoachNameDto;
+import menu.dto.ResultDto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,7 @@ public class Service {
     private static Service service = new Service();
     private Coachs coachs;
     private Results results;
+    private Categories categories = new Categories();
 
     private Service() {
     }
@@ -39,6 +41,7 @@ public class Service {
     public void recommend() {
         for (Day day : Day.values()) {
             Category category = Category.getCategoryByNumber(Randoms.pickNumberInRange(1, 5));
+            categories.addCategory(category);
             validate(category);
 
             // log
@@ -49,5 +52,18 @@ public class Service {
 
     private void validate(Category category) {
         // todo
+    }
+
+    public CategoryNamesDto getCategoryNamesDto() {
+        List<String> categoryNames = categories.getCategories().stream()
+                .map(category -> category.getCategory())
+                .collect(Collectors.toList());
+        return new CategoryNamesDto(categoryNames);
+    }
+
+    public List<ResultDto> getResultDtos() {
+        return results.getResults().stream()
+                .map(result -> new ResultDto(result.getCoach().getName(), result.getRecommendedMenus()))
+                .collect(Collectors.toList());
     }
 }

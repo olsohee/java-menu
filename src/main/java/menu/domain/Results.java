@@ -18,6 +18,9 @@ public class Results {
         for (Result result : results) {
             result.recommend(day, category);
         }
+    }
 
+    public List<Result> getResults() {
+        return results;
     }
 }
